@@ -40,13 +40,6 @@ const actions = {
 		description: `Share with users who have Eyas installed`,
 		command: `db`,
 		action: runCommand_db
-	},
-	bundle: {
-		enabled: true,
-		label: `ZIP: Bundled "*.zip" file for non-Eyas users that includes runner`,
-		description: `Does not need Eyas installed to run the test`,
-		command: `bundle`,
-		action: runCommand_bundle
 	}
 };
 
@@ -88,7 +81,6 @@ const paths = {
 	scriptsDest: path.join(roots.eyasBuild, names.scripts),
 	eyasRunnerWinSrc: path.join(roots.dist, `runners`, `${names.runner}.exe`),
 	eyasRunnerWinDest: path.join(roots.eyasBuild, `${names.runner}.exe`),
-	macRunnerSrcZip: path.join(roots.dist, `runners`, `${names.runner}.app.zip`),
 	macRunnerSrc: path.join(roots.dist, `runners`, `${names.runner}.app`),
 	macRunnerDest: path.join(roots.eyasBuild, `${names.runner}.app`),
 	linuxRunnerSrc: path.join(roots.dist, `runners`, `${names.runner}.AppImage`),
@@ -347,113 +339,6 @@ async function runCommand_web() {
 
 	userLog(``);
 	userLog(`🎉 File created -> ${artifactName}`);
-}
-
-// generate a zipped output for distribution
-async function runCommand_bundle() {
-	const fs = require(`fs-extra`);
-	const archiver = require(`archiver`);
-	const extract = require(`extract-zip`);
-	const asar = require(`@electron/asar`);
-
-	// if the mac runner exists AND it wasn't already extracted
-	if(fs.existsSync(paths.macRunnerSrcZip) && !fs.existsSync(paths.macRunnerSrc)) {
-		// unzip the mac runner
-		await extract(paths.macRunnerSrcZip, { dir: path.join(roots.dist, `runners`) });
-	}
-
-	// get the test's config and prepare it for the build
-	const modifiedConfig = getOutputConfig().asModule;
-
-	// setup the platform output
-	const platforms = [
-		{ enabled: config.outputs.windows, ext: `exe`, runner: paths.eyasRunnerWinSrc, tag: `win` },
-		{ enabled: config.outputs.mac, ext: `app`, runner: paths.macRunnerSrc, tag: `mac` },
-		{ enabled: config.outputs.linux, ext: `AppImage`, runner: paths.linuxRunnerSrc, tag: `linux` }
-	];
-
-	// reset the output directory
-	await fs.emptyDir(roots.eyasDist);
-
-	// put the user's test into an asar file with .eyas extension
-	const testSourceDirectory = config.source;
-	const outputSourceDirectory = path.join(roots.eyasDist, `source`);
-	const destinationAsarPath = path.join(roots.eyasDist, `${TEST_SOURCE}.eyas`);
-
-	// create a source/ directory in the output directory
-	await fs.emptyDir(outputSourceDirectory);
-
-	// copy the user's test to the output directory
-	await fs.copy(testSourceDirectory, outputSourceDirectory);
-
-	// save the modifiedConfig to the new source/ directory
-	await fs.writeFile(path.join(outputSourceDirectory, `.eyas.config.js`), modifiedConfig);
-
-	// create an asar file from the source/ directory and store it in the output directory
-	await asar.createPackage(outputSourceDirectory, destinationAsarPath);
-
-	// create an array of promises for the archives
-	const archivePromises = [];
-
-	// loop through the platforms and create the zipped files if enabled
-	platforms.forEach(platform => {
-		// skip if the platform isn't enabled
-		if(!platform.enabled) { return; }
-
-		// start a promise for this platform archive process
-		archivePromises.push(
-			new Promise((resolve, reject) => {
-				const artifactName = `${config.title} - ${config.version}.${platform.tag}.zip`
-					// remove any characters that could cause issues
-					.replace(/[\/\\:\*\?"<>\|]/g, `_`);
-
-				// create the zip file
-				const output = fs.createWriteStream(path.join(roots.eyasDist, artifactName));
-
-				// when the process has completed (Note: listener must be added before the archive is finalized)
-				output.on(`close`, () => {
-					// alert the user
-					userLog(``);
-					userLog(`🎉 File created -> ${artifactName}`);
-
-					// resolve the promise
-					resolve();
-				});
-
-				// prepare a new archive
-				const archive = archiver(`zip`, { store: isDev, zlib: { level: 9 } });
-
-				// push content to the archive
-				archive.pipe(output);
-
-				// add the appropriate runner
-				if(platform.tag === `mac`) {
-					archive.directory(platform.runner, `${names.runner}.${platform.ext}`);
-				} else {
-					archive.file(platform.runner, { name: `${names.runner}.${platform.ext}` });
-				}
-
-				// add the user's bundled asar test
-				archive.file(destinationAsarPath, { name: `${TEST_SOURCE}.eyas` });
-
-				// close the archive
-				archive.finalize();
-			})
-		);
-	});
-
-	// when all promises have resolved
-	Promise.all(archivePromises).then(async () => {
-		// delete the source/ directory
-		await fs.remove(outputSourceDirectory);
-
-		// delete the asar file
-		await fs.remove(destinationAsarPath);
-
-		// alert the user
-		userLog(``);
-		userLog(`🎉 All files created!`);
-	});
 }
 
 // wrapper to differentiate user logs (allowed) from system logs (disallowed)
