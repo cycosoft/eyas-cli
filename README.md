@@ -20,12 +20,9 @@
 
 ## The Pitch
 
-You bundle your app in any state with the CLI through one of the available methods, and your consumer gets to test your changes with the [Eyas runner](https://github.com/cycosoft/Eyas/releases).
-
-Reduce and simplify the feedback loop with any stakeholder & any team size, regardless of their technical ability. Less bugs, faster deployment cycles, reduced stress ...for free.
+Bundle your app from any branch, and share it with stakeholders to test your changes using [Eyas Desktop](https://github.com/cycosoft/Eyas/releases). Reduce and simplify the feedback loop before merging. Less bugs, faster deployment cycles, reduced stress.
 
 - 🎨 A/B Test Design Changes
-- 👩‍💻 Allow POs to Test UX
 - 🚀 Get Pre-Merge QA Sign-Off
 - 🌍 Test Against Any Environment
 - 📢 Get Early Customer Feedback
@@ -99,11 +96,6 @@ npm run build-my-project && npx eyas web
 npm run build-my-project && npx eyas db
 ```
 
-```bash
-# Packages the configured app to a distributable zip
-npm run build-my-project && npx eyas bundle
-```
-
 ## Outputs
 
 - `web`: Outputs `eyas.json` to your `config.source` directory for deployment to a web server
@@ -117,11 +109,7 @@ npm run build-my-project && npx eyas bundle
   - Outputs to `./eyas-dist/`
   - About the size of the project production output
   - Recommended for end-users who do frequent testing, and do not have the benefit of hosting build artifacts on a server.
-- `bundle`: Packages project production output, test config & Eyas for each enabled platform
-  - Does not require Eyas to be installed
-  - Outputs to `./eyas-dist/${title} - ${version}.${platform}.zip`
-  - 60mb - 100mb range
-  - Recommended for one-off testing without installing Eyas to your local machine.
+
 
 ## Tips
 
