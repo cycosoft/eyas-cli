@@ -1,3 +1,7 @@
+# v4.0.0
+
+- Split project into "Eyas for Desktop" and "Eyas CLI"
+
 # v3.5.1
 
 - Update dependencies
