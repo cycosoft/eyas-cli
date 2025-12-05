@@ -19,7 +19,7 @@
   "scripts": {
     "_______________DEV_______________": "",
     "dev": "npm i && npm run update && npm run compile:prep && npm run compile:ui && npm run dev:module",
-    "update": "npm-check-updates --interactive --format group",
+    "update": "npm-check-updates --interactive --format group --cooldown 7",
     "_____________COMPILE_____________": "",
     "compile:prep": "node src/scripts/compile-prep.js",
     "compile:module": "electron-vite build && node src/scripts/compile-module.js",
@@ -59,6 +59,6 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "eslint": "^9.39.1",
-    "npm-check-updates": "^18.0.3"
+    "npm-check-updates": "^19.1.2"
   }
 }
