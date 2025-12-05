@@ -74,11 +74,7 @@ module.exports = {
   */]
   // File outputs
   outputs: {
-    // Build a Windows distributable for `eyas bundle` command (auto-detected if not set)
-    windows: true,
-    // Build a MacOS distributable for `eyas bundle` command (auto-detected if not set)
-    mac: true,
-    // The number of hours from build time until the distributable expires
+    // The number of hours from build time until the test expires
     expires: 168 // (range: 1-720 hours)
   }
 };

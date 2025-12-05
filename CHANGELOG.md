@@ -1,7 +1,7 @@
 # v4.0.0
 
-- Split project into "Eyas for Desktop" and "Eyas CLI"
-- Removed the `bundle` command from the CLI, since the runner is now a separate project. Significantly reduces the package size.
+- Split project into "Eyas for Desktop" and "Eyas CLI". This project now only contains the CLI to generate test files for use with the Eyas Desktop application.
+- Removed the `bundle` command from the CLI due to low use. Significantly reduces the package size.
 
 # v3.5.1
 

@@ -8,7 +8,7 @@
 # Deployment Process
 
 - tag the commit with the version -> `git tag -a v3.3.0 -m "v3.3.0"`
-- Draft a new GitHub release; do not publish ( https://github.com/cycosoft/Eyas/releases )
+- Draft a new GitHub release; do not publish ( https://github.com/cycosoft/eyas-cli/releases )
 - Generate .msi -> `npm run compile:win:installer`
 - Add to release draft `.runners/EyasInstaller.msi`
 - compile .exe -> `npm run compile:win:module`

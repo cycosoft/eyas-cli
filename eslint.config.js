@@ -1,7 +1,5 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
-import pluginVue from 'eslint-plugin-vue';
-import vueEslintParser from 'vue-eslint-parser';
 
 export default [
 	{
@@ -18,9 +16,6 @@ export default [
 				sourceType: 'module'
 			}
 		},
-		plugins: {
-			vue: pluginVue
-		},
 		rules: {
 			...pluginJs.configs.recommended.rules,
 			// Existing custom rules
@@ -36,41 +31,14 @@ export default [
 			'arrow-parens': ['error', 'as-needed'],
 			'no-spaced-func': ['error'],
 			'no-trailing-spaces': ['error'],
-			'spaced-comment': ['error', 'always'],
-			'vue/html-indent': ['error', 'tab', {
-				alignAttributesVertically: false
-			}],
-			'vue/max-attributes-per-line': 'off'
-		}
-	},
-	{
-		files: ['**/*.vue'],
-		languageOptions: {
-			parser: vueEslintParser,
-			parserOptions: {
-				ecmaVersion: 'latest',
-				sourceType: 'module',
-				parser: {
-					js: 'espree',
-					ts: '@typescript-eslint/parser'
-				}
-			}
-		},
-		plugins: {
-			vue: pluginVue
-		},
-		rules: {
-			...pluginVue.configs['vue3-recommended'].rules
+			'spaced-comment': ['error', 'always']
 		}
 	},
 	{
 		files: [
 			'eslint.config.js',
 			'src/scripts/**/*.js',
-			'src/cli/index.js',
-			'electron.vite.config.js',
-			'src/eyas-interface/app/.vite.config.ui.js',
-			'src/scripts/test-preload.js'
+			'src/cli/index.js'
 		],
 		languageOptions: {
 			globals: {
