@@ -25,7 +25,6 @@
     "compile": "npm run compile:prep && npm run compile:module",
     "compile:prep": "node src/scripts/compile-prep.js",
     "compile:module": "node src/scripts/compile-module.js",
-    "compile:cleanup": "node src/scripts/compile-cleanup.js",
     "_____________SCRIPTS_____________": "",
     "npmjs:bundle": "npm pack",
     "npmjs:deploy": "npm run ENSURE_VERSION_SET && npm publish",
