@@ -52,6 +52,7 @@ The CLI will attempt to run without a configuration file by using the values in 
 module.exports = {
   // From <projectRoot>, this is the path to your production output i.e. `npm run build` output
   source: `dist`,
+
   // Simulate a domain for the test (accepts '' || [''] || [{ url, title }])
   domains: [
     `eyas://local.test`
@@ -61,18 +62,23 @@ module.exports = {
       { url: `cycosoft.com`, title: `Production` } // Prod URLs are helpful, but under careful consideration.
     */
   ],
+
   // The name of your project
   title: ``,
+
   // The version of your project Eyas will be built from. You can alternatively set it to your package.json version for example.
   version: `<current-branch>.<current-commit>`,
+
   // Additional screen sizes to test your application at
   viewports: [/* { label: `iPad Pro`, width: 1024, height: 1366 } */],
+
   // Custom items for link menu with support for getting user input
   links: [/*
     { label: `Cycosoft, LLC`, url: `cycosoft.com`, external: true (open in browser) },
     { label: `Variables Demo`, url: `{testdomain}?id={int}&msg={str}&go={bool}&list={item1|item2|}` }
-  */]
-  // File outputs
+  */],
+
+  // options for the test
   outputs: {
     // The number of hours from build time until the test expires
     expires: 168 // (range: 1-720 hours)
