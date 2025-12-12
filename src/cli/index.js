@@ -237,7 +237,7 @@ function getOutputConfig() {
 	delete configCopy.outputs;
 
 	// let the builder know when this build expires
-	userLog(`Set build expirations to: ${configCopy.meta.expires.toLocaleString()}`);
+	userLog(`Set test expiration to: ${configCopy.meta.expires.toLocaleString()}`);
 
 	// convert the config to a string
 	const stringified = JSON.stringify(configCopy);
