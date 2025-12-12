@@ -23,6 +23,10 @@ const paths = {
 
 // Allow for "root" await calls
 (async () => {
+	// Prep the destination directory
+	await fs.emptyDir(roots.dist);
+
+	// Copy the scripts
 	await fs.copy(
 		path.join(paths.scriptsSrc, `get-config.js`),
 		path.join(paths.scriptsDist, `get-config.js`)

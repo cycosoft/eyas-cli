@@ -18,14 +18,11 @@
   },
   "scripts": {
     "_______________DEV_______________": "",
-    "dev": "npm i && npm run compile && cross-env NODE_ENV=dev node dist/cli/index.js",
+    "dev": "npm i && npm run prep-for-distribution && cross-env NODE_ENV=dev node dist/cli/index.js",
     "check": "npm i && npm run update",
     "update": "npm-check-updates --interactive --format group --cooldown 7",
-    "_____________COMPILE_____________": "",
-    "compile": "npm run compile:prep && npm run compile:module",
-    "compile:prep": "node src/scripts/compile-prep.js",
-    "compile:module": "node src/scripts/compile-module.js",
     "_____________SCRIPTS_____________": "",
+    "prep-for-distribution": "node src/scripts/prep-for-distribution.js",
     "npmjs:bundle": "npm pack",
     "npmjs:deploy": "npm run ENSURE_VERSION_SET && npm publish"
   },
