@@ -20,7 +20,7 @@
 
 ## The Pitch
 
-Bundle your app from any branch, and share it with stakeholders to test your changes using [Eyas Desktop](https://github.com/cycosoft/Eyas/releases). Reduce and simplify the feedback loop before merging. Less bugs, faster deployment cycles, reduced stress.
+Bundle your app from any branch, and share it with stakeholders to test your changes using [Eyas Desktop](https://github.com/cycosoft/Eyas/releases). Simplify the feedback loop _before_ merging. Less bugs, faster deployment cycles, reduced stress.
 
 - 🎨 A/B Test Design Changes
 - 🚀 Get Pre-Merge QA Sign-Off
