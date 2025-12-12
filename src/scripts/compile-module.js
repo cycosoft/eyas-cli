@@ -34,7 +34,7 @@ const paths = {
 	eyasInterfaceAppDest: path.join(roots.moduleBuild, names.eyasInterfaceApp),
 	packageJsonModule: path.join(roots.module, names.packageJson),
 	packageJsonDist: path.join(roots.moduleBuild, names.packageJson),
-	scriptsSrc: path.join(roots.preBuild, `scripts`),
+	scriptsSrc: path.join(roots.src, `scripts`),
 	scriptsBuild: path.join(roots.moduleBuild, `scripts`),
 	scriptsDist: path.join(roots.dist, `scripts`)
 };
@@ -49,12 +49,12 @@ const paths = {
 	// }
 
 	// Copy runtime files
-	await fs.copy(paths.eyasAssetsSrc, paths.eyasAssetsDest);
-	await fs.copy(paths.buildAssetsSrc, paths.buildAssetsDest);
-	await fs.copy(paths.eyasInterfaceAppSrc, paths.eyasInterfaceAppDest);
-	await fs.copy(paths.eyasSplashSrc, paths.eyasSplashDest);
-	await fs.copy(paths.eyasCoreSrc, paths.eyasCoreDest);
-	await fs.copy(paths.scriptsSrc, paths.scriptsBuild);
+	// await fs.copy(paths.eyasAssetsSrc, paths.eyasAssetsDest);
+	// await fs.copy(paths.buildAssetsSrc, paths.buildAssetsDest);
+	// await fs.copy(paths.eyasInterfaceAppSrc, paths.eyasInterfaceAppDest);
+	// await fs.copy(paths.eyasSplashSrc, paths.eyasSplashDest);
+	// await fs.copy(paths.eyasCoreSrc, paths.eyasCoreDest);
+	// await fs.copy(paths.scriptsSrc, paths.scriptsBuild);
 
 	await fs.copy(
 		path.join(paths.scriptsSrc, `get-config.js`),
@@ -76,7 +76,7 @@ const paths = {
 	// await fs.remove(roots.preBuild);
 
 	// Update the package.json version numbers
-	await updatePackageJsonValues();
+	// await updatePackageJsonValues();
 
 	// Copy the CLI
 	console.log(`copying ${paths.cliSrcFile}`);

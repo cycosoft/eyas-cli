@@ -11,6 +11,6 @@ const fs = require(`fs-extra`);
 	const roots = require(`./get-roots`);
 
 	// Prep the .build/ & dist/ directories for module output
-	await fs.emptyDir(roots.moduleBuild);
+	// await fs.emptyDir(roots.moduleBuild);
 	await fs.emptyDir(roots.dist);
 })();
