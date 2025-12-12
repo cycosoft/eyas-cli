@@ -27,10 +27,7 @@
     "compile:module": "node src/scripts/compile-module.js",
     "_____________SCRIPTS_____________": "",
     "npmjs:bundle": "npm pack",
-    "npmjs:deploy": "npm run ENSURE_VERSION_SET && npm publish",
-    "bump:patch": "npm version patch && git push && git push --tags",
-    "bump:minor": "npm version minor && git push && git push --tags",
-    "bump:beta": "npm version prerelease --preid beta && git push && git push --tags"
+    "npmjs:deploy": "npm run ENSURE_VERSION_SET && npm publish"
   },
   "license": "MIT",
   "keywords": [
