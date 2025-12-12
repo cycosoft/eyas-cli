@@ -10,7 +10,6 @@ const fs = require(`fs-extra`);
 	// Import dependencies
 	const roots = require(`./get-roots`);
 
-	// Prep the .build/ & dist/ directories for module output
-	// await fs.emptyDir(roots.moduleBuild);
+	// Prep the dist/ directory for module output
 	await fs.emptyDir(roots.dist);
 })();
