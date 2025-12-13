@@ -23,7 +23,7 @@
     "update": "npm-check-updates --interactive --format group --cooldown 7",
     "_____________SCRIPTS_____________": "",
     "prep-for-distribution": "node src/scripts/prep-for-distribution.js",
-    "npmjs:bundle": "npm pack",
+    "npmjs:bundle": "npm run prep-for-distribution && npm pack",
     "npmjs:deploy": "npm run ENSURE_VERSION_SET && npm publish"
   },
   "license": "MIT",
