@@ -107,8 +107,26 @@ function askUser() {
 			initial: 1
 		}
 	])
-	// run the selected action
-	.then(({ action }) => actions[action].action());
+
+	// respond to the user's choice
+	.then((result) => {
+		const action = result?.action;
+
+		// exit if the user cancelled
+		if(!action || !actions[action]) {
+			process.exit(0);
+
+			return;
+		}
+
+		// run the action
+		actions[action].action();
+	})
+
+	.catch(() => {
+		userLog(`Cancelled`);
+		process.exit(0);
+	});
 }
 
 // setup the CLI arguments

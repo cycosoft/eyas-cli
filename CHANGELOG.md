@@ -2,6 +2,7 @@
 
 - Split project into "Eyas for Desktop" and "Eyas CLI". This project now only contains the CLI to generate test files for use with the Eyas Desktop application.
 - Removed the `bundle` command from the CLI due to low use. Significantly reduces the package size.
+- Fix error when pressing escape to exit the CLI
 
 # v3.5.1
 
