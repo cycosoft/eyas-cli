@@ -6,9 +6,6 @@ cycosoft-eyas-*.tgz
 .eyas-*
 eyas-dist/
 dist/
-.build
-.pre-build
-.runners
 
 .DS_Store
 .env.local
