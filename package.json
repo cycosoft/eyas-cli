@@ -44,7 +44,7 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@electron/asar": "^3.2.13",
+    "@electron/asar": "^3.4.1",
     "commander": "^12.1.0",
     "date-fns": "^4.1.0",
     "fs-extra": "^11.3.2",
