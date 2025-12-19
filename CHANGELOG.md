@@ -1,3 +1,8 @@
+# v4.0.0
+
+- Split project into "Eyas for Desktop" and "Eyas CLI". This project now only contains the CLI to generate test files for use with the Eyas Desktop application.
+- Removed the `bundle` command from the CLI due to low use. Significantly reduces the package size.
+
 # v3.5.1
 
 - Update dependencies

@@ -20,12 +20,9 @@
 
 ## The Pitch
 
-You bundle your app in any state with the CLI through one of the available methods, and your consumer gets to test your changes with the [Eyas runner](https://github.com/cycosoft/Eyas/releases).
-
-Reduce and simplify the feedback loop with any stakeholder & any team size, regardless of their technical ability. Less bugs, faster deployment cycles, reduced stress ...for free.
+Bundle your app from any branch, and share it with stakeholders to test your changes using [Eyas Desktop](https://github.com/cycosoft/Eyas/releases). Simplify the feedback loop _before_ merging. Less bugs, faster deployment cycles, reduced stress.
 
 - 🎨 A/B Test Design Changes
-- 👩‍💻 Allow POs to Test UX
 - 🚀 Get Pre-Merge QA Sign-Off
 - 🌍 Test Against Any Environment
 - 📢 Get Early Customer Feedback
@@ -55,6 +52,7 @@ The CLI will attempt to run without a configuration file by using the values in 
 module.exports = {
   // From <projectRoot>, this is the path to your production output i.e. `npm run build` output
   source: `dist`,
+
   // Simulate a domain for the test (accepts '' || [''] || [{ url, title }])
   domains: [
     `eyas://local.test`
@@ -64,24 +62,25 @@ module.exports = {
       { url: `cycosoft.com`, title: `Production` } // Prod URLs are helpful, but under careful consideration.
     */
   ],
+
   // The name of your project
   title: ``,
+
   // The version of your project Eyas will be built from. You can alternatively set it to your package.json version for example.
   version: `<current-branch>.<current-commit>`,
+
   // Additional screen sizes to test your application at
   viewports: [/* { label: `iPad Pro`, width: 1024, height: 1366 } */],
+
   // Custom items for link menu with support for getting user input
   links: [/*
     { label: `Cycosoft, LLC`, url: `cycosoft.com`, external: true (open in browser) },
     { label: `Variables Demo`, url: `{testdomain}?id={int}&msg={str}&go={bool}&list={item1|item2|}` }
-  */]
-  // File outputs
+  */],
+
+  // options for the test
   outputs: {
-    // Build a Windows distributable for `eyas bundle` command (auto-detected if not set)
-    windows: true,
-    // Build a MacOS distributable for `eyas bundle` command (auto-detected if not set)
-    mac: true,
-    // The number of hours from build time until the distributable expires
+    // The number of hours from build time until the test expires
     expires: 168 // (range: 1-720 hours)
   }
 };
@@ -99,11 +98,6 @@ npm run build-my-project && npx eyas web
 npm run build-my-project && npx eyas db
 ```
 
-```bash
-# Packages the configured app to a distributable zip
-npm run build-my-project && npx eyas bundle
-```
-
 ## Outputs
 
 - `web`: Outputs `eyas.json` to your `config.source` directory for deployment to a web server
@@ -117,11 +111,7 @@ npm run build-my-project && npx eyas bundle
   - Outputs to `./eyas-dist/`
   - About the size of the project production output
   - Recommended for end-users who do frequent testing, and do not have the benefit of hosting build artifacts on a server.
-- `bundle`: Packages project production output, test config & Eyas for each enabled platform
-  - Does not require Eyas to be installed
-  - Outputs to `./eyas-dist/${title} - ${version}.${platform}.zip`
-  - 60mb - 100mb range
-  - Recommended for one-off testing without installing Eyas to your local machine.
+
 
 ## Tips
 
