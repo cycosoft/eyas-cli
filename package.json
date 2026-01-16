@@ -37,7 +37,11 @@
     "manual",
     "uat",
     "feature",
-    "branch"
+    "branch",
+    "review",
+    "visual",
+    "quality",
+    "qa"
   ],
   "files": [
     "dist",
