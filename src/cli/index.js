@@ -289,28 +289,41 @@ function userWarn(input) {
 
 // open a folder in the system's file explorer (cross-platform)
 function openFolder(folderPath) {
-	const { exec } = require(`child_process`);
+	const { spawn } = require(`child_process`);
 	const absolutePath = path.resolve(folderPath);
 	let command;
+	let args;
 
-	// determine the command based on the platform
+	// determine the command and arguments based on the platform
 	if(process.platform === `win32`) {
 		// Windows
-		command = `explorer "${absolutePath}"`;
+		command = `explorer`;
+		args = [absolutePath];
 	} else if(process.platform === `darwin`) {
 		// macOS
-		command = `open "${absolutePath}"`;
+		command = `open`;
+		args = [absolutePath];
 	} else {
 		// Linux and other Unix-like systems
-		command = `xdg-open "${absolutePath}"`;
+		command = `xdg-open`;
+		args = [absolutePath];
 	}
 
 	// execute the command
-	exec(command, (error) => {
+	const child = spawn(command, args);
+
+	// handle errors
+	child.on(`error`, (error) => {
 		// Windows explorer often returns a non-zero exit code even on success
 		// Only show error if it's not Windows or if the error is significant
-		if(error && process.platform !== `win32`) {
+		if(process.platform !== `win32`) {
 			userWarn(`Failed to open folder: ${error.message}`);
 		}
+	});
+
+	// handle process close (for exit code checking if needed)
+	child.on(`close`, (code) => {
+		// Windows explorer often returns a non-zero exit code even on success
+		// Exit codes are ignored for all platforms as the error event handles actual failures
 	});
 }
