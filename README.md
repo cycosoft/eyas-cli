@@ -94,8 +94,8 @@ npm run build-my-project && npx eyas web
 ```
 
 ```bash
-# Generates an Eyas test database for use with the installed version of Eyas
-npm run build-my-project && npx eyas db
+# Generates an Eyas test file for use with the installed version of Eyas
+npm run build-my-project && npx eyas file
 ```
 
 ## Outputs
@@ -106,11 +106,14 @@ npm run build-my-project && npx eyas db
   - Requires a secure web server to host.
   - Recommended way to best control access to your tests. (e.g. delete source or require VPN)
   - View a demo at [https://launch.eyas.dev/demo.eyas.dev](https://launch.eyas.dev/demo.eyas.dev)
-- `db`: Creates an `*.eyas` file of project production output + test config
+- `file`: Creates an `*.eyas` file of project production output + test config
   - Requires end user to have Eyas [installed](https://github.com/cycosoft/Eyas/releases)
   - Outputs to `./eyas-dist/`
   - About the size of the project production output
   - Recommended for end-users who do frequent testing, and do not have the benefit of hosting build artifacts on a server.
+- `db`: (Deprecated) Creates an `*.eyas` file of project production output + test config
+  - ⚠️  **Deprecated**: The `db` command is deprecated and will be removed in the future. Please use `file` instead.
+  - Same functionality as `file` command
 
 
 ## Tips
