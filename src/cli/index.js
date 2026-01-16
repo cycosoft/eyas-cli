@@ -18,14 +18,26 @@ const actions = {
 		label: `WEB: Generate "eyas.json" for eyas:// links`,
 		description: `Consumers will need Eyas Desktop`,
 		command: `web`,
-		action: runCommand_web
+		action: runCommand_web,
+		options: [
+			{
+				flags: `-o, --open`,
+				description: `Open the output folder after build`
+			}
+		]
 	},
 	db: {
 		enabled: true,
 		label: `DB: Build "*.eyas" file for Eyas users`,
 		description: `Consumers will need Eyas Desktop`,
 		command: `db`,
-		action: runCommand_db
+		action: runCommand_db,
+		options: [
+			{
+				flags: `-o, --open`,
+				description: `Open the output folder after build`
+			}
+		]
 	}
 };
 
@@ -149,10 +161,19 @@ function defineCommands(cli) {
 		if(!actions[action].enabled) { continue; }
 
 		// define the argument with commander
-		cli
+		const command = cli
 			.command(cmd.command)
-			.description(cmd.description)
-			.action(cmd.action);
+			.description(cmd.description);
+
+		// add options if defined
+		if(cmd.options) {
+			for(const option of cmd.options) {
+				command.option(option.flags, option.description);
+			}
+		}
+
+		// add the action
+		command.action(cmd.action);
 	}
 }
 
@@ -222,6 +243,12 @@ async function runCommand_db() {
 
 	userLog(``);
 	userLog(`🎉 File created -> ${artifactName}`);
+
+	// open the folder if the --open flag is set (this is the command object when called from Commander)
+	const command = this && typeof this.opts === `function` ? this : null;
+	if(command && command.opts().open) {
+		openFolder(roots.eyasDist);
+	}
 }
 
 // generate a web output for distribution
@@ -237,6 +264,12 @@ async function runCommand_web() {
 
 	userLog(``);
 	userLog(`🎉 File created -> ${artifactName}`);
+
+	// open the folder if the --open flag is set (this is the command object when called from Commander)
+	const command = this && typeof this.opts === `function` ? this : null;
+	if(command && command.opts().open) {
+		openFolder(config.source);
+	}
 }
 
 // wrapper to differentiate user logs (allowed) from system logs (disallowed)
@@ -252,4 +285,32 @@ function userLog(string) {
 function userWarn(input) {
 	// eslint-disable-next-line no-console
 	console.warn(input);
+}
+
+// open a folder in the system's file explorer (cross-platform)
+function openFolder(folderPath) {
+	const { exec } = require(`child_process`);
+	const absolutePath = path.resolve(folderPath);
+	let command;
+
+	// determine the command based on the platform
+	if(process.platform === `win32`) {
+		// Windows
+		command = `explorer "${absolutePath}"`;
+	} else if(process.platform === `darwin`) {
+		// macOS
+		command = `open "${absolutePath}"`;
+	} else {
+		// Linux and other Unix-like systems
+		command = `xdg-open "${absolutePath}"`;
+	}
+
+	// execute the command
+	exec(command, (error) => {
+		// Windows explorer often returns a non-zero exit code even on success
+		// Only show error if it's not Windows or if the error is significant
+		if(error && process.platform !== `win32`) {
+			userWarn(`Failed to open folder: ${error.message}`);
+		}
+	});
 }
