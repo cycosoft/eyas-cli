@@ -26,10 +26,23 @@ const actions = {
 			}
 		]
 	},
+	file: {
+		enabled: true,
+		label: `FILE: Build "*.eyas" file for Eyas users`,
+		description: `Consumers will need Eyas Desktop`,
+		command: `file`,
+		action: runCommand_file,
+		options: [
+			{
+				flags: `-o, --open`,
+				description: `Open the output folder after build`
+			}
+		]
+	},
 	db: {
 		enabled: true,
-		label: `DB: Build "*.eyas" file for Eyas users`,
-		description: `Consumers will need Eyas Desktop`,
+		label: `DB: Build "*.eyas" file for Eyas users (deprecated)`,
+		description: `Consumers will need Eyas Desktop (deprecated: use "file" instead)`,
 		command: `db`,
 		action: runCommand_db,
 		options: [
@@ -206,8 +219,8 @@ function getOutputConfig() {
 	};
 }
 
-// generate a db output for distribution
-async function runCommand_db() {
+// generate a file output for distribution
+async function runCommand_file() {
 	const fs = require(`fs-extra`);
 	const asar = require(`@electron/asar`);
 
@@ -249,6 +262,12 @@ async function runCommand_db() {
 	if(command && command.opts().open) {
 		openFolder(roots.eyasDist);
 	}
+}
+
+// deprecated: generate a db output for distribution (use runCommand_file instead)
+async function runCommand_db() {
+	userWarn(`⚠️  The "db" command is deprecated and will be removed in the future. Please use "file" instead.`);
+	return runCommand_file.call(this);
 }
 
 // generate a web output for distribution
