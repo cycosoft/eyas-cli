@@ -1,6 +1,7 @@
 # v4.0.1
 
 - Version bump to force Eyas Desktop app update past 4.0.0
+- Update dependencies
 
 # v4.0.0
 
