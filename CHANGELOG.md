@@ -1,3 +1,7 @@
+# v4.0.1
+
+- Version bump to force Eyas Desktop app update past 4.0.0
+
 # v4.0.0
 
 - Split project into "Eyas for Desktop" and "Eyas CLI". This project now only contains the CLI to generate test files for use with the Eyas Desktop application.
